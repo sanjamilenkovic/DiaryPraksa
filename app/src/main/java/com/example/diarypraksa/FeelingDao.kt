@@ -14,7 +14,7 @@ interface FeelingDao {
     fun getAllFeelings() : Flow<List<Feeling>>
 
     @Query("SELECT * FROM feeling_table WHERE id = :id")
-    suspend fun getFeelingById(id : Int)
+    suspend fun getFeelingById(id : Int) : Feeling
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(feeling : Feeling)
