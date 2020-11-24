@@ -5,4 +5,8 @@
     <string name="calendar">calendar</string>
     <string name="edit">edit</string>
     <string name="settings">settings</string>
+    <string name="how_are_you">How are You?</string>
+    <string name="how_do_you_feel">How do You feel?</string>
+    <string name="i_feel">I feel...</string>
+    <string name="my_text">This is an <u>underline</u>.</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.CoroutineScope
 
 @Database(entities = arrayOf(Feeling::class, Friend::class), version = 1, exportSchema = false)
 public abstract class DiaryRoomDatabase : RoomDatabase() {
@@ -18,7 +19,7 @@ public abstract class DiaryRoomDatabase : RoomDatabase() {
             @Volatile
             private var INSTANCE: DiaryRoomDatabase? = null
 
-            fun getDatabase(context: Context): DiaryRoomDatabase {
+            fun getDatabase(context: Context, applicationScope: CoroutineScope): DiaryRoomDatabase {
                 // if the INSTANCE is not null, then return it,
                 // if it is, then create the database
                 return INSTANCE ?: synchronized(this) {
