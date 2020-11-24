@@ -1,10 +1,17 @@
 package com.example.diarypraksa
 
+import adapters.CalendarAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import java.util.Calendar.MONTH
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,4 +38,14 @@ class CalendarFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
-}
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val calendar = view.findViewById<RecyclerView>(R.id.calendar_list)
+        calendar.layoutManager=GridLayoutManager(context,7,RecyclerView.VERTICAL,false)
+        calendar.adapter= CalendarAdapter()
+       // val prevMonthImage = view.findViewById<ImageView>(R.id.prevMonthImage)
+      //  prevMonthImage.setOnClickListener { (calendar.adapter as CalendarAdapter).currentDate =
+        }
+    }
