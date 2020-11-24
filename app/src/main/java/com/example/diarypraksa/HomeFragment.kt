@@ -1,15 +1,15 @@
 package com.example.diarypraksa
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import android.widget.EditText
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diarypraksa.MyApplication.Companion.currentApp
+import com.example.diarypraksa.adapters.FriendAdapter
 import com.example.diarypraksa.adapters.MoodAdapter
 import java.util.*
 
@@ -31,23 +31,51 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel =
             ViewModelProviders.of(this, HomeViewModel.HomeViewModelFactory((currentApp.repository)))
                 .get(HomeViewModel::class.java)
-        val recyclerView: RecyclerView = view.findViewById(R.id.sticker_rv)
+
+
+        val recyclerViewSticker: RecyclerView = view.findViewById(R.id.sticker_rv)
+        val recyclerViewFriend : RecyclerView = view.findViewById(R.id.list_of_friends_rv)
+
+
         val listener = object : MoodAdapter.INotify {
 
             override fun onMoodClick(index: Int) {
 
                 val today: Date = Calendar.getInstance().time
 
-                val f = Feeling(1, today, index, "opis1")
-                viewModel.insert(f)
+                val sticker = (index) % 4
 
+                val f = Feeling(1, today, sticker, "opis1")
+                viewModel.insert(f)
 
             }
         }
 
-        recyclerView.layoutManager =
+        recyclerViewSticker.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = MoodAdapter(listener)
+        recyclerViewSticker.adapter = MoodAdapter(listener)
+
+
+        recyclerViewFriend.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewFriend.adapter = FriendAdapter()
+
+        val editFeel : EditText = view.findViewById(R.id.i_feel_et)
+
+        editFeel.setOnClickListener{
+//
+//            val d = activity?.let { it1 -> DialogFeeling(it1) }
+//            if (d != null) {
+//                d.show()
+//            }
+
+            activity?.let {
+                val d = DialogFeeling(it)
+                d.show()
+            }
+        }
+
+
     }
 
 

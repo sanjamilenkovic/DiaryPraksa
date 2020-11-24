@@ -14,7 +14,7 @@ interface FriendDao {
     fun getAllFriends() : Flow<List<Friend>>
 
     @Query("SELECT * FROM friend_table WHERE id = :id")
-    suspend fun getFriendById(id : Int)
+    suspend fun getFriendById(id : Int) : Friend
 
     //radi i update i insert, ako utvrdi da podatak postoji, radi REPLACE, inace radi INSERT
     @Insert(onConflict = OnConflictStrategy.REPLACE)
