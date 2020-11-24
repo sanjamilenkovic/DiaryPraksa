@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -60,7 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewFriend.adapter = FriendAdapter()
 
-        val editFeel : EditText = view.findViewById(R.id.i_feel_et)
+        val editFeel : TextView = view.findViewById(R.id.i_feel_et)
 
         editFeel.setOnClickListener{
 //
