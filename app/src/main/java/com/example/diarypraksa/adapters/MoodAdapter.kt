@@ -19,38 +19,6 @@ class MoodAdapter(val listener : INotify) : RecyclerView.Adapter<MoodAdapter.Moo
         add(R.drawable.sticker_2)
         add(R.drawable.sticker_3)
         add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
-        add(R.drawable.sticker_1)
-        add(R.drawable.sticker_2)
-        add(R.drawable.sticker_3)
-        add(R.drawable.sticker_4)
 
     }
 
@@ -67,34 +35,6 @@ class MoodAdapter(val listener : INotify) : RecyclerView.Adapter<MoodAdapter.Moo
                 listener.onMoodClick(selectedPosition)
 
             }
-
-//            moodDescription.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-//                    //to do
-//                    Toast.makeText(currentApp, "kliknuto", Toast.LENGTH_LONG)
-//                    return@OnKeyListener true
-//                }
-//                false
-//            })
-
-//            moodDescription.setOnKeyListener { v, keyCode, event ->
-//
-//                when {
-//
-//                    //Check if it is the Enter-Key,      Check if the Enter Key was pressed down
-//                    ((keyCode == KeyEvent.KEYCODE_ENTER) && (event.action == KeyEvent.ACTION_DOWN)) -> {
-//
-//
-//                        //perform an action here e.g. a send message button click
-//                        moodDescription.performClick()
-//
-//                        //return true
-//                        return@setOnKeyListener true
-//                    }
-//                    else -> false
-//                }
-
-
         }
     }
 
