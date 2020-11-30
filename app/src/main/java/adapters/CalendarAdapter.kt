@@ -5,17 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.diarypraksa.Feeling
 import com.example.diarypraksa.R
+import org.w3c.dom.Text
+import java.time.Month
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.DayHolder>() {
+class CalendarAdapter(val listener:CalendarINotify) : RecyclerView.Adapter<CalendarAdapter.DayHolder>() {
 
-    lateinit var currentDate: Date
-
-
+    var currentDate: Date=Calendar.getInstance().time
+    var proba: Date=Calendar.getInstance().time
+    var c = Calendar.getInstance()
     val list = ArrayList<Int>()
+
 
     //    init {
 //        currentDate = Calendar.getInstance().time
@@ -25,7 +30,7 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.DayHolder>() {
 //            list.add(i)
 //
 //    }
-    val c = Calendar.getInstance()
+
 
     //    val year = c.get(Calendar.YEAR)
 //    val month = c.get(Calendar.MONTH)
@@ -53,6 +58,7 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.DayHolder>() {
         val daysInMonth: Int = c.getActualMaximum(Calendar.DAY_OF_MONTH)
         for (i in 0 until daysInMonth)
             list.add(i + 1)
+
         for (i in list.size until 42)
             list.add(-1)
     }
@@ -65,9 +71,34 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.DayHolder>() {
                 val position = day.tag as Int
                 notifyDataSetChanged()
                 selectedPosition = position
-                itemView.setBackgroundColor(Color.RED)
+                if (!day.text.isBlank()) {
+                    val c=Calendar.getInstance()
+                    c.time=currentDate
+                    c.get(Calendar.MONTH)
+                    val dayoFMonth = day.text.toString().toInt()
+                    listener.onDayClick(dayoFMonth,c.get(Calendar.MONTH))
+                    //itemView.setBackgroundColor(Color.GREEN)
+
+                }
             }
         }
+
+
+    }
+    fun onRefresh(proba:Calendar)
+    {
+        list.clear()
+            proba.set(Calendar.DAY_OF_MONTH, 1) //1.11.2020
+
+            val dayOfTheWeek = proba.get(Calendar.DAY_OF_WEEK)
+            for (i in 0 until dayOfTheWeek - 1) {
+                list.add(-1)
+            }
+            val daysInMonth: Int = proba.getActualMaximum(Calendar.DAY_OF_MONTH)
+            for (i in 0 until daysInMonth)
+                list.add(i + 1)
+            for (i in list.size until 42)
+                list.add(-1)
 
     }
 
@@ -89,10 +120,18 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.DayHolder>() {
             holder.day.setBackgroundColor(Color.TRANSPARENT)
 
         holder.day.tag = position
+
+
+
     }
 
     override fun getItemCount(): Int {
         return 42
     }
+    interface CalendarINotify {
+        fun onDayClick(index : Int, mesec:Int)
+    }
+
+
 }
 

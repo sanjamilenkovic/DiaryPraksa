@@ -5,13 +5,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 
 @Dao
+
 interface FriendDao {
 
     @Query("SELECT * FROM friend_table")
     fun getAllFriends() : Flow<List<Friend>>
+
+    @Query("SELECT * FROM friend_table WHERE date BETWEEN :startDate AND :endDate")
+    fun getFriendsByDate(startDate: Date, endDate: Date) : Flow<List<Friend>>
+
+    @Query("SELECT * FROM friend_table WHERE date BETWEEN :startDate AND :endDate")
+    suspend fun getFriendByDate(startDate: Date, endDate: Date) :Friend
+
 
     @Query("SELECT * FROM friend_table WHERE id = :id")
     suspend fun getFriendById(id : Int) : Friend

@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="100">
+        android:weightSum="100"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,24 +34,25 @@
                     android:layout_height="wrap_content"
 
                     android:layout_weight="1"
-                    android:background="#AE4747"
-                    android:src="@drawable/abc_vector_test" />
+                    android:background="#FFFFFF"
+                    android:src="@drawable/strelical" />
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:layout_weight="6"
                     android:gravity="center"
-                    android:text="TextView" />
+                     />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/nextMonth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#BD2424"
-                    android:src="@drawable/abc_vector_test" />
+                    android:background="#FFFFFF"
+                    android:src="@drawable/strelicad" />
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +136,8 @@
                 android:id="@+id/calendar_list"
                 tools:listitem="@layout/item_day"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                />
 
 
         </LinearLayout>
@@ -148,45 +151,68 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
                     android:text="Mood:" />
 
                 <ImageView
-                    android:layout_marginStart="8dp"
-                    android:id="@+id/imageView5"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/sticker_1" />
+                    android:id="@+id/slicica"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp" />
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Feel:" />
+                    android:text="Feel:"
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:text=" bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga. bla bla blab lbalbal . gskagkga." />
+                    android:layout_weight="1" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="List of Friends" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

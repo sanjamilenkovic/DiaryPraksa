@@ -46,7 +46,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 val sticker = (index) % 4
 
-                val f = Feeling(1, today, sticker, "opis1")
+                val f = Feeling(today, sticker, "opis1")
                 viewModel.insert(f)
 
             }
