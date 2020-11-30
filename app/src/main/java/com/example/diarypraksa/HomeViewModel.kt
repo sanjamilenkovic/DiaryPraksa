@@ -1,21 +1,29 @@
 package com.example.diarypraksa
 
-import android.content.Intent
 import androidx.lifecycle.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.io.Console
 import java.util.*
 
 class HomeViewModel(private val repository: DiaryRepository) : ViewModel() {
 
-    public val feelingLD = MutableLiveData<Feeling>()
-    val allFeelingsLD : LiveData<List<Feeling>> = repository.allFeelings.asLiveData()
 
-    fun getFeelingById(id : Int) = viewModelScope.launch {
+
+    //Feeling
+
+
+    //zar ne bi trebalo da MutableLiveData bude private, a da imam public LiveData kojem mogu da pristupim iz fragmenta
+    public val feelingLD = MutableLiveData<Feeling>()
+
+    val allFeelingsLD: LiveData<List<Feeling>> = repository.allFeelings.asLiveData()
+
+    fun getFeelingById(id: Int) = viewModelScope.launch {
         feelingLD.postValue(repository.getFeelingById(id));
     }
 
-    fun getFeelingByDate(startDate : Date, endDate : Date) = viewModelScope.launch {
-       val temp = (repository.getFeelingByDate(startDate, endDate))
+    fun getFeelingByDate(startDate: Date, endDate: Date) = viewModelScope.launch {
+        val temp = (repository.getFeelingByDate(startDate, endDate))
         if (temp != null)
             feelingLD.postValue(temp)
         else
@@ -30,8 +38,8 @@ class HomeViewModel(private val repository: DiaryRepository) : ViewModel() {
         repository.updateFeeling(feeling)
     }
 
-    fun deleteAll() = viewModelScope.launch {
-        repository.deleteAll()
+    fun deleteAllFeelings() = viewModelScope.launch {
+        repository.deleteAllFeelings()
     }
 
     fun updateMyLiveData(opis: String) {
@@ -40,7 +48,108 @@ class HomeViewModel(private val repository: DiaryRepository) : ViewModel() {
         feelingLD.postValue(myFeeling)
     }
 
-    class HomeViewModelFactory(private val repository: DiaryRepository) : ViewModelProvider.Factory {
+    fun updateMyLiveData(index: Int) {
+        val myFeeling = feelingLD.value
+        myFeeling?.sticker_id = index
+        feelingLD.postValue(myFeeling)
+    }
+
+
+
+    //Friend
+
+
+
+    val probaPrijatelji: LiveData<List<Friend>> = repository.allFriends.asLiveData()
+
+    public val friendLD = MutableLiveData<Friend>()
+    public val friendsLD = MutableLiveData<List<Friend>>()
+
+    fun getAllFriends() = viewModelScope.launch {
+        val allFriends = repository.getAllFriends()
+        friendsLD.postValue(allFriends.asLiveData().value)
+    }
+
+    fun getFriendByDate(startDate: Date, endDate: Date) = viewModelScope.launch {
+        val temp = (repository.getFriendByDate(startDate, endDate))
+        friendLD.postValue(temp)
+    }
+
+    fun getFriendById(id: Int): Job = viewModelScope.launch {
+        val temp =  (repository.getFriendById(id))
+        friendLD.postValue(temp)
+    }
+
+    fun insert(friend: Friend) = viewModelScope.launch {
+        repository.insertFriend(friend)
+    }
+
+    fun update(friend: Friend) = viewModelScope.launch {
+        repository.updateFriend(friend)
+    }
+
+    fun updateById(friend: Friend) = viewModelScope.launch {
+        repository.updateFriendById(friend)
+    }
+
+    fun updateMyLiveData(newFriend: Friend) {
+
+        if (friendLD.value != null) {
+            val currentFriend = friendLD.value
+            currentFriend?.name = newFriend.name
+            currentFriend?.lastName = newFriend.lastName
+            currentFriend?.image = newFriend.image
+            currentFriend?.email = newFriend.email
+            currentFriend?.number = newFriend.number
+            currentFriend?.notes = newFriend.notes
+            currentFriend?.name = newFriend.name
+            friendLD.postValue(currentFriend)
+        }
+        else {
+            val temp = Friend(
+                newFriend.image,
+                newFriend.name,
+                newFriend.lastName,
+                newFriend.date,
+                newFriend.email,
+                newFriend.notes,
+                newFriend.number
+            )
+            friendLD.postValue(temp)
+        }
+    }
+
+//    fun updateName(ime: String) {
+//        val friend = friendLD.value
+//        friend?.name = ime
+//        friendLD.postValue(friend)
+//    }
+
+//    fun getFriendByDate(startOfDay : Date, endOfDay : Date) = viewModelScope.launch{
+//        val friend = repository.getFriendByDate(startOfDay, endOfDay)
+//        if(friend != null )
+//            friendLD.postValue(friend)
+//        else
+//            friendLD.postValue(Friend("", "", "", Calendar.getInstance().time, "", "", ""))
+//    }
+
+//    fun getFriendByDateAndId(startOfDay : Date, endOfDay : Date, id: Int) = viewModelScope.launch{
+//        val friend = repository.getFriendByDateAndId(startOfDay, endOfDay, id)
+//        if(friend != null )
+//            friendLD.postValue(friend)
+//        else
+//            friendLD.postValue(Friend("", "", "", Calendar.getInstance().time, "", "", ""))
+//    }
+
+    fun deleteAllFriends() = viewModelScope.launch {
+        repository.deleteAllFriends()
+    }
+
+
+
+
+    class HomeViewModelFactory(private val repository: DiaryRepository) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

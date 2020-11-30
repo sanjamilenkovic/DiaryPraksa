@@ -10,8 +10,16 @@
     <string name="i_feel">I feel...</string>
     <string name="my_text">This is an <u>underline</u>.</string>
     <string name="list_of_friends">List of friends</string>
-    <string name="telephone">Telephone</string>
-    <string name="email">Email</string>
+    <string name="telephone">Telephone:</string>
+    <string name="email">Email: </string>
     <string name="cancel">CANCEL</string>
     <string name="save">SAVE</string>
+    <string name="info">Info</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="example_phone">0661234567</string>
+    <string name="write_info_here">Write info here</string>
+    <string name="name">Name</string>
+    <string name="last_name">Last name</string>
+    <string name="ime">Ime</string>
+    <string name="prezime">Prezime</string>
 </resources>

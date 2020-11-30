@@ -7,19 +7,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diarypraksa.Friend
 import com.example.diarypraksa.R
-import kotlinx.android.synthetic.main.sticker_rv_item.view.*
 
-class FriendAdapter : RecyclerView.Adapter<FriendAdapter.FriendHolder>() {
 
-    val listaImena = ArrayList<String>().apply {
-        add("Sanja")
-        add("Sanja2")
-        add("Sanja3")
-    }
+class FriendAdapter(val listener: INotify) : RecyclerView.Adapter<FriendAdapter.FriendHolder>() {
 
-    inner open class FriendHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    lateinit var listaPrijatelja: List<Friend>
 
-        val ime = itemView.findViewById<TextView>(R.id.name_tv)
+    inner open class FriendHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val ime = itemView.findViewById<TextView>(R.id.nameTextView)
+        val prezime = itemView.findViewById<TextView>(R.id.lastNameTextView)
+        val telefon = itemView.findViewById<TextView>(R.id.telephoneTextView)
+        val email = itemView.findViewById<TextView>(R.id.emailTextView)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendAdapter.FriendHolder {
@@ -29,13 +29,29 @@ class FriendAdapter : RecyclerView.Adapter<FriendAdapter.FriendHolder>() {
     }
 
     override fun onBindViewHolder(holder: FriendHolder, position: Int) {
-        holder.ime.setText(listaImena[position])
+
+        holder.ime.setText(listaPrijatelja[position].name)
+        holder.prezime.setText(listaPrijatelja[position].lastName)
+        holder.telefon.setText(listaPrijatelja[position].number)
+        holder.email.setText(listaPrijatelja[position].email)
+
+        holder.itemView.setOnClickListener {
+           listener.onFriendClicked(listaPrijatelja[position])
+        }
 
     }
 
     override fun getItemCount(): Int {
-        return listaImena.size
+        return listaPrijatelja.size
     }
 
+    fun updateListuPrijatelja(novaLista: List<Friend>) {
+        listaPrijatelja = novaLista
+    }
+
+
+    interface INotify {
+        fun onFriendClicked(friend: Friend)
+    }
 
 }

@@ -17,9 +17,6 @@ interface FeelingDao {
     @Query("SELECT * FROM feeling_table WHERE id = :id")
     suspend fun getFeelingById(id: Int) : Feeling
 
-//    @Query("SELECT * FROM feeling_table WHERE date = :date")
-//    suspend fun getFeelingByDate(date: Date) : Feeling
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(feeling: Feeling) : Long
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSizeDefault">12sp</dimen>
+    <dimen name="textSizeNameLastName">18sp</dimen>
+    <dimen name="imageFriendMargins">30dp</dimen>
+    <dimen name="imageFriendDimen">60dp</dimen>
+    <dimen name="editTextMargin">10dp</dimen>
+</resources>

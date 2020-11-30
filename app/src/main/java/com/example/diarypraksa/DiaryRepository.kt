@@ -6,61 +6,108 @@ import java.util.*
 
 class DiaryRepository(private val feelingDao: FeelingDao, private val friendDao: FriendDao) {
 
-        // Room executes all queries on a separate thread.
-        // Observed Flow will notify the observer when the data has changed.
 
-        val allFeelings: Flow<List<Feeling>> = feelingDao.getAllFeelings()
+    //Feeling
 
 
-        val allFriends : Flow<List<Friend>> = friendDao.getAllFriends()
+    val allFeelings: Flow<List<Feeling>> = feelingDao.getAllFeelings()
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun insert(newFeeling: Feeling) {
+        feelingDao.insert(newFeeling)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteAllFeelings() {
+        feelingDao.deleteAll()
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getFeelingById(id: Int): Feeling {
+        return feelingDao.getFeelingById(id);
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getFeelingByDate(startDate: Date, endDate: Date): Feeling {
+        return feelingDao.getFeelingByDate(startDate, endDate);
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateFeeling(feeling: Feeling) {
+        if (feeling.id != 0)
+            feelingDao.updateFeeling(feeling.description, feeling.sticker_id, feeling.id)
+        else
+            feeling.id = feelingDao.insert(feeling).toInt()
+    }
 
 
-        // By default Room runs suspend queries off the main thread, therefore, we don't need to
-        // implement anything else to ensure we're not doing long running database work
-        // off the main thread.
-
-        /*suspend fun getAllFrieds():List<Friend>{
-                return friendDao.getAllFriends()
-        }*/
+    //Friend
 
 
-        @Suppress("RedundantSuspendModifier")
-        @WorkerThread
-        suspend fun insert(newFeeling: Feeling) {
-            feelingDao.insert(newFeeling)
-        }
+    val allFriends: Flow<List<Friend>> = friendDao.getAllFriends()
 
-        @Suppress("RedundantSuspendModifier")
-        @WorkerThread
-        suspend fun deleteAll() {
-                feelingDao.deleteAll()
-        }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getAllFriends(): Flow<List<Friend>> {
+        return friendDao.getAllFriends()
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun insertFriend(newFriend: Friend) {
+        friendDao.insert(newFriend)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getFriendByDate(startOfDay: Date, endOfDay: Date): Friend {
+        return friendDao.getFriendByDate(startOfDay, endOfDay);
+    }
 
 
-        @Suppress("RedundantSuspendModifier")
-        @WorkerThread
-        suspend fun insert(newFriend: Friend) {
-            friendDao.insert(newFriend)
-        }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteAllFriends() {
+        return friendDao.deleteAll();
+    }
 
-        @Suppress("RedundantSuspendModifier")
-        @WorkerThread
-        suspend fun getFeelingById(id : Int) : Feeling{
-                return feelingDao.getFeelingById(id);
-        }
 
-        @Suppress("RedundantSuspendModifier")
-        @WorkerThread
-        suspend fun getFeelingByDate(startDate : Date, endDate: Date) : Feeling{
-                return feelingDao.getFeelingByDate(startDate, endDate);
-        }
+    suspend fun updateFriend(friend: Friend) {
+        if (friend.id != 0)
+            friendDao.updateFriend(
+                friend.image,
+                friend.name,
+                friend.lastName,
+                friend.email,
+                friend.notes,
+                friend.number
+            )
+        else
+            friend.id = friendDao.insert(friend).toInt()
+    }
 
-        @Suppress("RedundantSuspendModifier")
-        @WorkerThread
-        suspend fun updateFeeling(feeling: Feeling) {
-                if (feeling.id != 0)
-                        feelingDao.updateFeeling(feeling.description, feeling.sticker_id, feeling.id)
-                else
-                        feeling.id = feelingDao.insert(feeling).toInt()
-        }
+    suspend fun getFriendById(id: Int): Friend {
+        return friendDao.getFriendById(id)
+    }
+
+    suspend fun updateFriendById(friend: Friend) {
+        if (friend.id != 0)
+            friendDao.updateFriendById(
+                friend.id,
+                friend.image,
+                friend.name,
+                friend.lastName,
+                friend.email,
+                friend.notes,
+                friend.number
+            )
+        else
+            friend.id = friendDao.insert(friend).toInt()
+    }
+
 }

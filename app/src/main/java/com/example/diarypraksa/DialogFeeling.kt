@@ -45,7 +45,6 @@ class DialogFeeling(var c: Activity, val listener : INotifyFeeling) : Dialog(c, 
 //            when (v.id) {
 //                R.id.btn_cancel -> dismiss()
 //                R.id.btn_save -> {
-
             }
 
         interface INotifyFeeling{
