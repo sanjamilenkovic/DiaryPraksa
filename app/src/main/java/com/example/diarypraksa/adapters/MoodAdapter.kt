@@ -1,6 +1,7 @@
 package com.example.diarypraksa.adapters
 
 import android.graphics.Color
+import android.util.DisplayMetrics
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,10 @@ import com.example.diarypraksa.R
 
 class MoodAdapter(val listener : INotify) : RecyclerView.Adapter<MoodAdapter.MoodHolder>() {
     var selectedPosition = -1
+
+
+
+
     val listaSlicica = ArrayList<Int>().apply {
         add(R.drawable.sticker_1)
         add(R.drawable.sticker_2)
@@ -40,6 +45,12 @@ class MoodAdapter(val listener : INotify) : RecyclerView.Adapter<MoodAdapter.Moo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoodHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.sticker_rv_item, null)
+
+        var metricsHeight = DisplayMetrics().heightPixels
+
+        //view.layoutParams.height = metricsHeight/3;
+
+
         return MoodHolder(view)
     }
 

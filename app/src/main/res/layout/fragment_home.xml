@@ -5,21 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
-
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/how_are_you_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18sp"
         android:text="@string/how_are_you" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sticker_rv"
+        app:layout_constrainedHeight="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +49,8 @@
         android:id="@+id/i_feel_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:hint="@string/i_feel"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/how_do_you_feel_tv"
         android:layout_marginBottom="10dp"/>
 
@@ -76,8 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/list_of_friends"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:text="@string/list_of_friends"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/edit_friend"

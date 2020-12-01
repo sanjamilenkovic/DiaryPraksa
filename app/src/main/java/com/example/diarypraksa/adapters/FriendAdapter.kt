@@ -11,7 +11,7 @@ import com.example.diarypraksa.R
 
 class FriendAdapter(val listener: INotify) : RecyclerView.Adapter<FriendAdapter.FriendHolder>() {
 
-    lateinit var listaPrijatelja: List<Friend>
+    val listaPrijatelja = ArrayList<Friend>()
 
     inner open class FriendHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -25,7 +25,13 @@ class FriendAdapter(val listener: INotify) : RecyclerView.Adapter<FriendAdapter.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendAdapter.FriendHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.friends_rv_item, null)
+
+        val layoutParams = ViewGroup.LayoutParams.MATCH_PARENT
+        layoutParams
+
         return FriendHolder(view)
+
+
     }
 
     override fun onBindViewHolder(holder: FriendHolder, position: Int) {
@@ -46,7 +52,8 @@ class FriendAdapter(val listener: INotify) : RecyclerView.Adapter<FriendAdapter.
     }
 
     fun updateListuPrijatelja(novaLista: List<Friend>) {
-        listaPrijatelja = novaLista
+        listaPrijatelja.clear()
+        listaPrijatelja.addAll(novaLista)
     }
 
 

@@ -80,6 +80,7 @@ class DiaryRepository(private val feelingDao: FeelingDao, private val friendDao:
     suspend fun updateFriend(friend: Friend) {
         if (friend.id != 0)
             friendDao.updateFriend(
+                friend.id,
                 friend.image,
                 friend.name,
                 friend.lastName,

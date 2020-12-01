@@ -2,6 +2,7 @@ package com.example.diarypraksa
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.example.diarypraksa.adapters.FriendAdapter
 import com.example.diarypraksa.adapters.MoodAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +37,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val recyclerViewSticker: RecyclerView = view.findViewById(R.id.sticker_rv)
         val recyclerViewFriend: RecyclerView = view.findViewById(R.id.list_of_friends_rv)
+
+//        recyclerViewSticker.setLayoutManager(object : LinearLayoutManager(context) {
+//            override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
+//                // force height of viewHolder here, this will override layout_height from xml
+//                lp.height = height / 10
+//                return true
+//            }
+//        })
+//
+//        recyclerViewFriend.setLayoutManager(object : LinearLayoutManager(context) {
+//            override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
+//                // force height of viewHolder here, this will override layout_height from xml
+//                lp.height = height / 10
+//                return true
+//            }
+//        })
 
         val today: Date = Calendar.getInstance().time
 
@@ -124,7 +142,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 Toast.makeText(context, "update prijatelja", Toast.LENGTH_SHORT).show()
 
                 viewModel.update(it)
-                //viewModel.updateById(it)
             })
 
             probaPrijatelji.observe(viewLifecycleOwner, {
@@ -152,8 +169,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             //launchGallery()
         }
 
+//        val displayMetrics = context?.resources?.displayMetrics
+//        val height = displayMetrics?.heightPixels
+//        val width = displayMetrics?.widthPixels
+//
+//
+//        val params: RecyclerView.LayoutParams = RecyclerView.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+
 
     }
+
+
 
 //    companion object {
 //        private const val IMAGE_PICK_CODE = 999
