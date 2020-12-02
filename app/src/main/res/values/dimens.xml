@@ -2,7 +2,7 @@
 <resources>
     <dimen name="textSizeDefault">12sp</dimen>
     <dimen name="textSizeNameLastName">18sp</dimen>
-    <dimen name="imageFriendMargins">20dp</dimen>
+    <dimen name="imageFriendMargins">25dp</dimen>
     <dimen name="imageFriendDimen">60dp</dimen>
     <dimen name="editTextMargin">10dp</dimen>
 </resources>

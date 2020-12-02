@@ -14,11 +14,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/imageFriend"
         android:layout_width="@dimen/imageFriendDimen"
         android:layout_height="@dimen/imageFriendDimen"
-        android:src="@drawable/sticker_1"
+        android:src="@drawable/user"
         app:layout_constraintStart_toStartOf="@id/friend_bg"
         app:layout_constraintTop_toTopOf="@id/friend_bg"
         android:layout_marginTop="@dimen/imageFriendMargins"

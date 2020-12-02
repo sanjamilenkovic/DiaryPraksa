@@ -3,8 +3,11 @@ package com.example.diarypraksa.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.diarypraksa.Friend
 import com.example.diarypraksa.R
 
@@ -19,31 +22,33 @@ class FriendAdapter(val listener: INotify) : RecyclerView.Adapter<FriendAdapter.
         val prezime = itemView.findViewById<TextView>(R.id.lastNameTextView)
         val telefon = itemView.findViewById<TextView>(R.id.telephoneTextView)
         val email = itemView.findViewById<TextView>(R.id.emailTextView)
+        val image = itemView.findViewById<ImageView>(R.id.imageFriend)
 
+        fun setData(position: Int) {
+            ime.setText(listaPrijatelja[position].name)
+            prezime.setText(listaPrijatelja[position].lastName)
+            telefon.setText(listaPrijatelja[position].number)
+            email.setText(listaPrijatelja[position].email)
+//          image.setImageURI(listaPrijatelja[position].image.toUri())
+            Glide.with(image.context).load(listaPrijatelja[position].image.toUri()).into(image)
+
+            itemView.setOnClickListener {
+                listener.onFriendClicked(listaPrijatelja[position])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendAdapter.FriendHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.friends_rv_item, null)
 
-        val layoutParams = ViewGroup.LayoutParams.MATCH_PARENT
-        layoutParams
-
         return FriendHolder(view)
-
 
     }
 
     override fun onBindViewHolder(holder: FriendHolder, position: Int) {
 
-        holder.ime.setText(listaPrijatelja[position].name)
-        holder.prezime.setText(listaPrijatelja[position].lastName)
-        holder.telefon.setText(listaPrijatelja[position].number)
-        holder.email.setText(listaPrijatelja[position].email)
-
-        holder.itemView.setOnClickListener {
-           listener.onFriendClicked(listaPrijatelja[position])
-        }
+        holder.setData(position)
 
     }
 

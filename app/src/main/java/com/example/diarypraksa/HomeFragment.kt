@@ -1,8 +1,9 @@
 package com.example.diarypraksa
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -28,6 +29,7 @@ import java.util.*
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     lateinit var viewModel: HomeViewModel
+    lateinit var dialog: DialogFriend
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,22 +39,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val recyclerViewSticker: RecyclerView = view.findViewById(R.id.sticker_rv)
         val recyclerViewFriend: RecyclerView = view.findViewById(R.id.list_of_friends_rv)
-
-//        recyclerViewSticker.setLayoutManager(object : LinearLayoutManager(context) {
-//            override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
-//                // force height of viewHolder here, this will override layout_height from xml
-//                lp.height = height / 10
-//                return true
-//            }
-//        })
-//
-//        recyclerViewFriend.setLayoutManager(object : LinearLayoutManager(context) {
-//            override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
-//                // force height of viewHolder here, this will override layout_height from xml
-//                lp.height = height / 10
-//                return true
-//            }
-//        })
 
         val today: Date = Calendar.getInstance().time
 
@@ -73,10 +59,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val endOfDay: Date = end.time
 
         viewModel.getFeelingByDate(startOfDay, endOfDay)
-        //viewModel.getFriendByDate(startOfDay, endOfDay)
-        //viewModel.getFriendByDateAndId(startOfDay, endOfDay, 2)
-        //viewModel.getAllFriends()
-
 
         val listenerMood = object : MoodAdapter.INotify {
 
@@ -98,12 +80,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             override fun onNewFriendAdded(newFriend: Friend) {
-                Toast.makeText(context, "Added new", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Added new", Toast.LENGTH_SHORT).show()
                 viewModel.insert(newFriend)
             }
 
             override fun onFriendUpdated(newFriend: Friend) {
-                Toast.makeText(context, "Edit starog", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Edit starog", Toast.LENGTH_SHORT).show()
                 viewModel.update(newFriend)
             }
         }
@@ -111,11 +93,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val listenerFriendClicked = object : FriendAdapter.INotify {
 
             override fun onFriendClicked(friend: Friend) {
+                activity?.let {
+                    val editFiendDialog = DialogFriend(it, listenerFriend, this@HomeFragment)
+                    dialog = editFiendDialog
+                    Toast.makeText(context, "edit poziv", Toast.LENGTH_SHORT)
+                    dialog.editFriend(friend)
+                }
 
-                //viewModel.getFriendByDate(startOfDay, endOfDay)
+//                    activity?.let {
+//                        val dialogFriend = DialogFriend(
+//                            it,
+//                            listenerFriend,
+//                            homeFragment = HomeFragment()
+//                        )
+//                        dialog = dialogFriend
+//                    }}
 
-                val editFriend =
-                    activity?.let { DialogFriend(it, listenerFriend) }?.editFriend(friend)
 
             }
         }
@@ -139,13 +132,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             })
 
             friendLD.observe(viewLifecycleOwner, {
-                Toast.makeText(context, "update prijatelja", Toast.LENGTH_SHORT).show()
-
+//                Toast.makeText(context, "update prijatelja", Toast.LENGTH_SHORT).show()
                 viewModel.update(it)
             })
 
             probaPrijatelji.observe(viewLifecycleOwner, {
-                Toast.makeText(context, "lista", Toast.LENGTH_SHORT).show()
                 friendAdapter.updateListuPrijatelja(it)
                 friendAdapter.notifyDataSetChanged()
             })
@@ -163,36 +154,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val editFriendButton: FloatingActionButton = view.findViewById(R.id.edit_friend)
         editFriendButton.setOnClickListener {
             activity?.let {
-                val newFriendDialog = DialogFriend(it, listenerFriend)
+                val newFriendDialog = DialogFriend(it, listenerFriend, this)
+                dialog = newFriendDialog
                 newFriendDialog.show()
             }
-            //launchGallery()
         }
-
-//        val displayMetrics = context?.resources?.displayMetrics
-//        val height = displayMetrics?.heightPixels
-//        val width = displayMetrics?.widthPixels
-//
-//
-//        val params: RecyclerView.LayoutParams = RecyclerView.LayoutParams(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if (resultCode == Activity.RESULT_OK) {
+            if (data?.dataString != null) {
+                val dataString = data.dataString //image path
+                if (dialog.isShowing) {
+                    dataString?.let { dialog.getDataString(it) }
+                }
 
-//    companion object {
-//        private const val IMAGE_PICK_CODE = 999
-//    }
-//
-//    private fun launchGallery() {
-//        val intent = Intent(Intent.ACTION_PICK)
-//        intent.type = "image/*"
-//        startActivityForResult(intent, IMAGE_PICK_CODE)
-//    }
+            }
 
+        }
+    }
 
 }
+
