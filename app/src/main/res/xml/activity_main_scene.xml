@@ -4,8 +4,6 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-
-
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         >
