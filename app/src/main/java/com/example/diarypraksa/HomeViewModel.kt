@@ -63,6 +63,7 @@ class HomeViewModel(private val repository: DiaryRepository) : ViewModel() {
     val probaPrijatelji: LiveData<List<Friend>> = repository.allFriends.asLiveData()
 
     public val friendLD = MutableLiveData<Friend>()
+    public val bestFriendLD = MutableLiveData<Int>()
     public val friendsLD = MutableLiveData<List<Friend>>()
 
     fun getAllFriends() = viewModelScope.launch {
@@ -84,6 +85,16 @@ class HomeViewModel(private val repository: DiaryRepository) : ViewModel() {
         repository.insertFriend(friend)
     }
 
+    fun insertBestFriend(friend: Friend) = viewModelScope.launch {
+        val idNewBestFriend= repository.insertFriend(friend)
+        bestFriendLD.postValue(idNewBestFriend);
+    }
+
+    fun updateBestFriend(friend: Friend) = viewModelScope.launch {
+        val idNewBestFriend= repository.updateFriend(friend)
+        bestFriendLD.postValue(idNewBestFriend);
+    }
+
     fun update(friend: Friend) = viewModelScope.launch {
         repository.updateFriend(friend)
     }
@@ -92,53 +103,31 @@ class HomeViewModel(private val repository: DiaryRepository) : ViewModel() {
         repository.updateFriendById(friend)
     }
 
-    fun updateMyLiveData(newFriend: Friend) {
-
-        if (friendLD.value != null) {
-            val currentFriend = friendLD.value
-            currentFriend?.name = newFriend.name
-            currentFriend?.lastName = newFriend.lastName
-            currentFriend?.image = newFriend.image
-            currentFriend?.email = newFriend.email
-            currentFriend?.number = newFriend.number
-            currentFriend?.notes = newFriend.notes
-            currentFriend?.name = newFriend.name
-            friendLD.postValue(currentFriend)
-        }
-        else {
-            val temp = Friend(
-                newFriend.image,
-                newFriend.name,
-                newFriend.lastName,
-                newFriend.date,
-                newFriend.email,
-                newFriend.notes,
-                newFriend.number
-            )
-            friendLD.postValue(temp)
-        }
-    }
-
-//    fun updateName(ime: String) {
-//        val friend = friendLD.value
-//        friend?.name = ime
-//        friendLD.postValue(friend)
-//    }
-
-//    fun getFriendByDate(startOfDay : Date, endOfDay : Date) = viewModelScope.launch{
-//        val friend = repository.getFriendByDate(startOfDay, endOfDay)
-//        if(friend != null )
-//            friendLD.postValue(friend)
-//        else
-//            friendLD.postValue(Friend("", "", "", Calendar.getInstance().time, "", "", ""))
-//    }
-
-//    fun getFriendByDateAndId(startOfDay : Date, endOfDay : Date, id: Int) = viewModelScope.launch{
-//        val friend = repository.getFriendByDateAndId(startOfDay, endOfDay, id)
-//        if(friend != null )
-//            friendLD.postValue(friend)
-//        else
-//            friendLD.postValue(Friend("", "", "", Calendar.getInstance().time, "", "", ""))
+//    fun updateMyLiveData(newFriend: Friend) {
+//
+//        if (friendLD.value != null) {
+//            val currentFriend = friendLD.value
+//            currentFriend?.name = newFriend.name
+//            currentFriend?.lastName = newFriend.lastName
+//            currentFriend?.image = newFriend.image
+//            currentFriend?.email = newFriend.email
+//            currentFriend?.number = newFriend.number
+//            currentFriend?.notes = newFriend.notes
+//            currentFriend?.name = newFriend.name
+//            friendLD.postValue(currentFriend)
+//        }
+//        else {
+//            val temp = Friend(
+//                newFriend.image,
+//                newFriend.name,
+//                newFriend.lastName,
+//                newFriend.date,
+//                newFriend.email,
+//                newFriend.notes,
+//                newFriend.number
+//            )
+//            friendLD.postValue(temp)
+//        }
 //    }
 
     fun deleteAllFriends() = viewModelScope.launch {

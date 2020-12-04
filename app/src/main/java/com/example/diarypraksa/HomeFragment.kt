@@ -1,7 +1,9 @@
 package com.example.diarypraksa
 
 import android.app.Activity
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -14,6 +16,8 @@ import com.example.diarypraksa.MyApplication.Companion.currentApp
 import com.example.diarypraksa.adapters.FriendAdapter
 import com.example.diarypraksa.adapters.MoodAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.util.*
 
 
@@ -28,6 +32,16 @@ import java.util.*
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
+    private var bestFriend: Int = 3
+    private val BEST_FRIEND_KEY = "bestFriend"
+
+    fun returnBestFriend() : Int {
+        return bestFriend
+    }
+
+    private var mPreferences: SharedPreferences? = null
+    private val sharedPrefFile = "com.example.diarypraksa"
+
     lateinit var viewModel: HomeViewModel
     lateinit var dialog: DialogFriend
 
@@ -36,6 +50,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel =
             ViewModelProviders.of(this, HomeViewModel.HomeViewModelFactory((currentApp.repository)))
                 .get(HomeViewModel::class.java)
+
+        mPreferences = activity?.getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
+
+        bestFriend = mPreferences!!.getInt(BEST_FRIEND_KEY, 0)
+        //Toast.makeText(context, bestFriend.toString(), Toast.LENGTH_LONG).show()
 
         val recyclerViewSticker: RecyclerView = view.findViewById(R.id.sticker_rv)
         val recyclerViewFriend: RecyclerView = view.findViewById(R.id.list_of_friends_rv)
@@ -75,19 +94,34 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         val listenerFriend = object : DialogFriend.INotifyFriend {
-            override fun onNewNameAdded(novoIme: String) {
-                // viewModel.updateName(novoIme)
-            }
 
-            override fun onNewFriendAdded(newFriend: Friend) {
-//                Toast.makeText(context, "Added new", Toast.LENGTH_SHORT).show()
-                viewModel.insert(newFriend)
-            }
-
-            override fun onFriendUpdated(newFriend: Friend) {
-//                Toast.makeText(context, "Edit starog", Toast.LENGTH_SHORT).show()
+            override fun onNewFriendAddedOrUpdated(newFriend: Friend) {
                 viewModel.update(newFriend)
             }
+
+            override fun onBestFriendAddedOrUpdated(newFriend: Friend) {
+                viewModel.updateBestFriend(newFriend)
+            }
+
+//            override fun onNewFriendAdded(newFriend: Friend) {
+//                Toast.makeText(context, "Added new", Toast.LENGTH_SHORT).show()
+//                //viewModel.insert(newFriend)
+//                viewModel.update(newFriend)
+//            }
+
+//            override fun onNewBestFriendAdded(newFriend: Friend) {
+//                viewModel.updateBestFriend(newFriend)
+//               // viewModel.insertBestFriend(newFriend)
+//            }
+
+//            override fun onFriendUpdated(newFriend: Friend) {
+////              Toast.makeText(context, "Edit starog", Toast.LENGTH_SHORT).show()
+//                viewModel.update(newFriend)
+//            }
+
+//            override fun onBestFriendUpdated(newFriend: Friend) {
+//                viewModel.updateBestFriend(newFriend)
+//            }
         }
 
         val listenerFriendClicked = object : FriendAdapter.INotify {
@@ -99,17 +133,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     Toast.makeText(context, "edit poziv", Toast.LENGTH_SHORT)
                     dialog.editFriend(friend)
                 }
-
-//                    activity?.let {
-//                        val dialogFriend = DialogFriend(
-//                            it,
-//                            listenerFriend,
-//                            homeFragment = HomeFragment()
-//                        )
-//                        dialog = dialogFriend
-//                    }}
-
-
             }
         }
 
@@ -139,6 +162,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             probaPrijatelji.observe(viewLifecycleOwner, {
                 friendAdapter.updateListuPrijatelja(it)
                 friendAdapter.notifyDataSetChanged()
+            })
+
+            bestFriendLD.observe(viewLifecycleOwner, {
+                bestFriend = it
+                saveSharedPref(bestFriend)
+                Toast.makeText(context, bestFriend.toString(), Toast.LENGTH_LONG).show()
             })
 
         }
@@ -175,6 +204,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
         }
+    }
+
+
+    fun saveSharedPref(id: Int) {
+        val preferencesEditor = mPreferences!!.edit()
+        preferencesEditor.clear()
+        preferencesEditor.apply()
+        preferencesEditor.putInt(BEST_FRIEND_KEY, bestFriend)
+        preferencesEditor.apply()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val preferencesEditor = mPreferences!!.edit()
+        preferencesEditor.putInt(BEST_FRIEND_KEY, bestFriend)
+        preferencesEditor.apply()
     }
 
 }

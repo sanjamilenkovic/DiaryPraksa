@@ -22,4 +22,8 @@
     <string name="last_name">Last name</string>
     <string name="ime">Ime</string>
     <string name="prezime">Prezime</string>
+    <string name="best_friend">Best friend</string>
+    <string name="call_best_friend">Call best friend</string>
+    <string name="open_chat_bot">Open chat</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "questionText": "Kako si?",
+    "possibleAnswers": [
+      {
+        "id": 1,
+        "answerText": "Odlicno",
+        "nextQuestion": 2
+      },
+      {
+        "id": 2,
+        "answerText": "Onako",
+        "nextQuestion": 3
+      },
+      {
+        "id": 3,
+        "answerText": "Lose",
+        "nextQuestion": 4
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "questionText": "Drago mi je da to cujem.",
+    "possibleAnswers": [
+      {
+        "id": 4,
+        "answerText": "Jeste",
+        "nextQuestion": null
+      },
+      {
+        "id": 5,
+        "answerText": "Nije",
+        "nextQuestion": null
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "questionText": "Da li te je danas nesto rastuzilo?",
+    "possibleAnswers": [
+      {
+        "id": 4,
+        "answerText": "Jeste",
+        "nextQuestion": null
+      },
+      {
+        "id": 5,
+        "answerText": "Nije",
+        "nextQuestion": null
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "questionText": "Zasto se danas lose osecas?",
+    "possibleAnswers": [
+      {
+        "id": 6,
+        "answerText": "Lose sam spavao",
+        "nextQuestion": null
+      },
+      {
+        "id": 7,
+        "answerText": "Drugi razlog",
+        "nextQuestion":null
+      },
+      {
+        "id": 8,
+        "answerText": "Treci razlog",
+        "nextQuestion": null
+      }
+    ]
+  }
+]

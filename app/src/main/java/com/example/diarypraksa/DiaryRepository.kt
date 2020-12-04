@@ -59,8 +59,9 @@ class DiaryRepository(private val feelingDao: FeelingDao, private val friendDao:
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertFriend(newFriend: Friend) {
-        friendDao.insert(newFriend)
+    suspend fun insertFriend(newFriend: Friend) : Int{
+        var idFriend: Int = friendDao.insert(newFriend).toInt()
+        return idFriend
     }
 
     @Suppress("RedundantSuspendModifier")
@@ -77,7 +78,7 @@ class DiaryRepository(private val feelingDao: FeelingDao, private val friendDao:
     }
 
 
-    suspend fun updateFriend(friend: Friend) {
+    suspend fun updateFriend(friend: Friend)  : Int{
         if (friend.id != 0)
             friendDao.updateFriend(
                 friend.id,
@@ -90,6 +91,8 @@ class DiaryRepository(private val feelingDao: FeelingDao, private val friendDao:
             )
         else
             friend.id = friendDao.insert(friend).toInt()
+
+        return friend.id
     }
 
     suspend fun getFriendById(id: Int): Friend {

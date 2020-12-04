@@ -2,24 +2,16 @@ package com.example.diarypraksa
 
 import android.app.Activity
 import android.app.Dialog
-import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.net.Uri
-import android.provider.Settings
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import java.util.*
-import android.Manifest
-import android.annotation.SuppressLint
+import android.widget.CheckBox
 
 class DialogFriend(var c: Activity, var listener: INotifyFriend, var homeFragment: HomeFragment) :
     Dialog(c, R.style.Dialog), View.OnClickListener {
@@ -31,6 +23,7 @@ class DialogFriend(var c: Activity, var listener: INotifyFriend, var homeFragmen
     lateinit var image: ImageView
     lateinit var info: EditText
     lateinit var imagePath : String
+    lateinit var checkBoxBestFriend : CheckBox
 
     override fun onClick(v: View?) {
         TODO("Not yet implemented")
@@ -47,7 +40,7 @@ class DialogFriend(var c: Activity, var listener: INotifyFriend, var homeFragmen
         }
 
         override fun permissionDenied() {
-            Toast.makeText(context, "Denied", Toast.LENGTH_LONG )
+            Toast.makeText(context, "Denied", Toast.LENGTH_LONG ).show()
         }
 
     }
@@ -62,6 +55,7 @@ class DialogFriend(var c: Activity, var listener: INotifyFriend, var homeFragmen
         telefon = findViewById<EditText>(R.id.editTelephone)
         info = findViewById<EditText>(R.id.editInfo)
         image = findViewById<ImageView>(R.id.imageNewFriend)
+        checkBoxBestFriend = findViewById<CheckBox>(R.id.checkBoxBestFriend)
         imagePath = novoIme.text.toString()
 
         image.setOnClickListener {
@@ -81,7 +75,15 @@ class DialogFriend(var c: Activity, var listener: INotifyFriend, var homeFragmen
                 info.text.toString(),
                 telefon.text.toString()
             )
-            listener.onNewFriendAdded(friend)
+            if(checkBoxBestFriend.isChecked) {
+                Toast.makeText(context, "Adding new best friend", Toast.LENGTH_SHORT).show()
+                listener.onBestFriendAddedOrUpdated(friend)
+            }
+            else {
+                Toast.makeText(context, "Adding new", Toast.LENGTH_SHORT).show()
+                listener.onNewFriendAddedOrUpdated(friend)
+
+            }
             dismiss()
         }
     }
@@ -96,32 +98,30 @@ class DialogFriend(var c: Activity, var listener: INotifyFriend, var homeFragmen
     fun editFriend(friend: Friend) {
         show()
 
+//      Glide koristiti uvek pri ucitavanju slike
+        Glide.with(context).load(friend.image.toUri()).into(image)
+
+        var idBestFriend = homeFragment.returnBestFriend()
+
+        var checkBox = findViewById<CheckBox>(R.id.checkBoxBestFriend)
+
+        if (idBestFriend == friend.id) {
+            checkBox.isChecked = true
+        }
+
         novoIme.setText(friend.name)
         prezime.setText(friend.lastName)
         email.setText(friend.email)
         telefon.setText(friend.number)
         info.setText(friend.notes)
-
-//      Glide koristiti uvek pri ucitavanju slike
-        Glide.with(context).load(friend.image.toUri()).dontAnimate().into(image)
+        imagePath = friend.image
 
         image.setOnClickListener {
+            Toast.makeText(context, "drugi permission", Toast.LENGTH_LONG).show()
             PermissionHelper.requestStoragePermission(c, permissionListener)
         }
 
-        //image.setImageURI(friend.image.toUri())
-
-//        imageViewFriend.setOnClickListener {
-//
-//            val getImageIntent = Intent(Intent.ACTION_GET_CONTENT)
-//            getImageIntent.addCategory(Intent.CATEGORY_OPENABLE)
-//            getImageIntent.type = "image/*"
-//
-//            val INPUT_FILE_REQUEST_CODE = 1;
-//
-//            homeFragment.startActivityForResult(getImageIntent, INPUT_FILE_REQUEST_CODE)
-//        }
-
+        Glide.with(context).load(imagePath.toUri()).into(image)
 
         val save = findViewById<ImageView>(R.id.buttonSaveFriend) as ImageView
         save.setOnClickListener {
@@ -131,15 +131,27 @@ class DialogFriend(var c: Activity, var listener: INotifyFriend, var homeFragmen
             friend.notes = info.text.toString()
             friend.number = telefon.text.toString()
             friend.image = imagePath
-            listener.onFriendUpdated(friend)
+
+            if(checkBoxBestFriend.isChecked){
+                Toast.makeText(context, "Updating best friend", Toast.LENGTH_SHORT).show()
+                listener.onBestFriendAddedOrUpdated(friend)
+            }
+            else {
+                Toast.makeText(context, "Updating", Toast.LENGTH_SHORT).show()
+                listener.onNewFriendAddedOrUpdated(friend)
+            }
+
             dismiss()
         }
     }
 
     interface INotifyFriend {
-        fun onNewNameAdded(novoIme: String)
-        fun onNewFriendAdded(newFriend: Friend)
-        fun onFriendUpdated(newFriend: Friend)
+        fun onNewFriendAddedOrUpdated(newFriend: Friend)
+        fun onBestFriendAddedOrUpdated(newFriend: Friend)
+        //fun onNewFriendAdded(newFriend: Friend)
+        //fun onFriendUpdated(newFriend: Friend)
+//        fun onNewBestFriendAdded(newFriend: Friend)
+//        fun onBestFriendUpdated(newFriend: Friend)
     }
 
 }

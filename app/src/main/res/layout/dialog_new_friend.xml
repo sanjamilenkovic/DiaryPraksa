@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/backgroundNewFriend"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:scaleType="fitXY"
         android:src="@drawable/friend_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,11 +46,11 @@
             android:id="@+id/editName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/name"
-            android:background="@color/white"
-            android:layout_toEndOf="@+id/imageNewFriend"
-            android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imageNewFriend"
+            android:background="@color/white"
+            android:hint="@string/name"
+            android:textStyle="bold"
 
             />
 
@@ -58,12 +58,12 @@
             android:id="@+id/editLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/last_name"
-            android:background="@color/white"
-            android:layout_toEndOf="@+id/imageNewFriend"
             android:layout_below="@+id/editName"
-            android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imageNewFriend"
+            android:background="@color/white"
+            android:hint="@string/last_name"
+            android:textStyle="bold"
 
             />
 
@@ -101,13 +101,13 @@
 
         <EditText
             android:id="@+id/editEmail"
-            android:inputType="textMultiLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/email"
-            android:hint="@string/example_gmail_com"
-            android:padding="1dp"
             android:background="@color/white"
+            android:hint="@string/example_gmail_com"
+            android:inputType="textMultiLine"
+            android:padding="1dp"
             android:textSize="@dimen/textSizeDefault"
             app:layout_constraintTop_toBottomOf="@id/email" />
 
@@ -126,33 +126,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/telephone"
+            android:background="@color/white"
             android:hint="@string/example_phone"
             android:padding="1dp"
-            android:background="@color/white"
             android:textSize="@dimen/textSizeDefault"
             app:layout_constraintTop_toBottomOf="@id/telephone" />
 
-
-            <TextView
-                android:id="@+id/info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/editTelephone"
-                android:text="@string/info"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTelephone" />
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTelephone"
+            android:text="@string/info"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTelephone" />
 
         <EditText
             android:id="@+id/editInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/info"
+            android:background="@color/white"
             android:hint="@string/write_info_here"
             android:padding="1dp"
-            android:background="@color/white"
             android:textSize="@dimen/textSizeDefault"
             app:layout_constraintTop_toBottomOf="@id/info" />
+
+        <CheckBox
+            android:id="@+id/checkBoxBestFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editInfo"/>
+
+        <TextView
+            android:id="@+id/bestFriendCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editInfo"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/checkBoxBestFriend"
+            android:text="@string/best_friend" />
 
     </RelativeLayout>
 
@@ -178,6 +193,7 @@
             android:text="SAVE"
             android:textColor="@color/white" />
     </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
