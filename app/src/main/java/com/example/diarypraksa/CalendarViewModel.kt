@@ -4,6 +4,7 @@ import adapters.CalendarAdapter
 import androidx.appcompat.view.menu.MenuView
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -77,11 +78,10 @@ public val readFeeling: LiveData<Feeling>
 
     }
 
-    fun readFriendsByDate(date: Date) = viewModelScope.launch {
-        _readFriends.postValue(repository.getFriendsByDate(date).asLiveData().value)
+    fun readFriendsByDate(date: Date) = viewModelScope.launch(Dispatchers.IO) {
+        _readFriends.postValue(repository.getFriendsByDate(date)/*.asLiveData().value*/)
 
     }
-
 
 
 

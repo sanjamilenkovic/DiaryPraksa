@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diarypraksa.Feeling
+import com.example.diarypraksa.Friend
 import com.example.diarypraksa.R
 import org.w3c.dom.Text
 import java.time.Month
@@ -20,6 +21,7 @@ class CalendarAdapter(val listener:CalendarINotify) : RecyclerView.Adapter<Calen
     var proba: Date=Calendar.getInstance().time
     var c = Calendar.getInstance()
     val list = ArrayList<Int>()
+
 
 
     //    init {
@@ -85,6 +87,7 @@ class CalendarAdapter(val listener:CalendarINotify) : RecyclerView.Adapter<Calen
 
 
     }
+
     fun onRefresh(proba:Calendar)
     {
         list.clear()

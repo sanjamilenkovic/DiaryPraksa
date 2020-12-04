@@ -12,4 +12,11 @@
     <string name="list_of_friends">List of friends</string>
     <string name="telephone">Telephone</string>
     <string name="email">Email</string>
+
+    <string name="surname">Surname</string>
+
+
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="save">SAVE</string>
 </resources>

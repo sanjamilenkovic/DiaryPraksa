@@ -68,7 +68,7 @@ class DiaryRepository(private val feelingDao: FeelingDao, private val friendDao:
                 return friendDao.getFriendByDate(startDate,endDate)
         }
 
-        suspend fun getFriendsByDate(date: Date):Flow<List<Friend>>{
+        suspend fun getFriendsByDate(date: Date):List<Friend>{
 
                 val c = Calendar.getInstance()
                 c.time=date
@@ -83,7 +83,7 @@ class DiaryRepository(private val feelingDao: FeelingDao, private val friendDao:
                 a.set(Calendar.SECOND,59)
                 val endDate: Date = a.time
 
-                return friendDao.getAllFriends()
+                return friendDao.getFriendsByDate(startDate,endDate)
         }
 
 

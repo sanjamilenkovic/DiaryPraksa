@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="permission_denied" translatable="false">Permission denied</string>
+    <string name="goToSettings" translatable="false">Go To Settings</string>
+    <string name="yes" translatable="false">Yes</string>
+    <string name="no" translatable="false">No</string>
+    <string name="cancel" translatable="false">Cancel</string>
+
+
+    <string name="permission_storage" translatable="false">Storage permission is required for the application to perform this action.\n\nWould you like to allow this permission?\n</string>
+    <string name="permission_storage_save_settings" translatable="false">Storage permission is required for the application to perform this action.\n\nPlease find this permission in the application settings and allow
+        it.\n
+    </string>
+    <string name="no_storage_permission" translatable="false">Storage permission is required to load your photos from the gallery.\n\nPlease find this permission in the application settings and allow it.\n</string>
+
+    <string name="permission_alert" translatable="false">Alert window permission is required for the application to perform this action.\n\nWould you like to allow this permission?\n</string>
+    <string name="permission_permission_alert_settings" translatable="false">Alert window permission is required for the application to perform this action.\n\nPlease find this permission in the application settings and allow
+        it.\n
+    </string>
+
+    <string name="permission_fitness" translatable="false">Fitness permission is required for the application to perform this action.\n\nWould you like to allow this permission?\n</string>
+    <string name="permission_fitness_save_settings" translatable="false">Fitness permission is required for the application to perform this action.\n\nPlease find this permission in the application settings and allow
+    it.\n</string>
+
+    <string name="camera_storage" translatable="false">Camera permission is required for the application to perform this action.\n\nWould you like to allow this permission?\n</string>
+    <string name="permission_camera_rationale" translatable="false">Access to the camera is needed for detection.\n\nWould you like to allow this permission?\n</string>
+    <string name="no_camera_permission" translatable="false">Camera permission is required to take a photo.\n\nPlease find this permission in the application settings and allow it.\n</string>
+
+
+</resources>

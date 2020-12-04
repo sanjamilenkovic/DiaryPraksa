@@ -16,7 +16,7 @@ interface FriendDao {
     fun getAllFriends() : Flow<List<Friend>>
 
     @Query("SELECT * FROM friend_table WHERE date BETWEEN :startDate AND :endDate")
-    fun getFriendsByDate(startDate: Date, endDate: Date) : Flow<List<Friend>>
+    fun getFriendsByDate(startDate: Date, endDate: Date) : List<Friend>
 
     @Query("SELECT * FROM friend_table WHERE date BETWEEN :startDate AND :endDate")
     suspend fun getFriendByDate(startDate: Date, endDate: Date) :Friend

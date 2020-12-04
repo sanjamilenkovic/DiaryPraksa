@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.asLiveData
@@ -27,6 +24,7 @@ import java.time.LocalDateTime
 import java.time.Month
 import java.util.*
 import java.util.Calendar.*
+import kotlin.collections.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,15 +37,14 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CalendarFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CalendarFragment : Fragment(), CalendarAdapter.CalendarINotify{
+class CalendarFragment : Fragment(), CalendarAdapter.CalendarINotify {
 
     val format = SimpleDateFormat("MMMM yyyy ")
-    lateinit var textView3:TextView
-    lateinit var textOpis:TextView
+    lateinit var textView3: TextView
+    lateinit var textOpis: TextView
     lateinit var viewModel: CalendarViewModel
     lateinit var stickerView: ImageView
     lateinit var textPrijatelj: TextView
-
 
 
 
@@ -65,37 +62,31 @@ class CalendarFragment : Fragment(), CalendarAdapter.CalendarINotify{
     }
 
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel =
-            ViewModelProviders.of(this, CalendarViewModelFactory((MyApplication.currentApp.repository)))
+            ViewModelProviders.of(
+                this,
+                CalendarViewModelFactory((MyApplication.currentApp.repository))
+            )
                 .get(CalendarViewModel::class.java)
-        viewModel.readFeeling.observe(viewLifecycleOwner,{
-            if(it!=null) {
+        viewModel.readFeeling.observe(viewLifecycleOwner, {
+            if (it != null) {
                 textOpis.text = it.description
                 if (it.sticker_id == 1) {
                     stickerView.setImageResource(R.drawable.sticker_1)
-                }
-                  else if (it.sticker_id == 2) {
+                } else if (it.sticker_id == 2) {
                     stickerView.setImageResource(R.drawable.sticker_2)
-                }
-
-              else   if (it.sticker_id == 3) {
+                } else if (it.sticker_id == 3) {
                     stickerView.setImageResource(R.drawable.sticker_3)
-                }
-
-               else  if (it.sticker_id == 4) {
+                } else if (it.sticker_id == 4) {
                     stickerView.setImageResource(R.drawable.sticker_4)
-                }
-                else{
+                } else {
                     stickerView.setImageResource(0)
 
                 }
-           }
-            else{
-                textOpis.text=" "
+            } else {
+                textOpis.text = " "
                 stickerView.setImageResource(0)
 
             }
@@ -103,23 +94,36 @@ class CalendarFragment : Fragment(), CalendarAdapter.CalendarINotify{
         })
 
         viewModel.readFriends.observe(viewLifecycleOwner, {
-            if (it != null) {
-                for (i in 0 until it.size){
-                    Toast.makeText(context, it[0].name, Toast.LENGTH_LONG).show()
-            }
+
+            var text:String=""
+            var coma:String=""
+
+
+            var list=it
+            if (list.isEmpty()) {
+
+                textPrijatelj.text = ""
+
             } else {
-                textPrijatelj.text = " "
+                for (i in 0 until list.size) {
+                    text = text + coma + list[i].name
+                    coma=", "
+                }
+                textPrijatelj.text = text
             }
+
+            list= emptyList()
+
+
+
+
         })
 
 
-
-
-
         //viewModel.insertTest()
-       //viewModel.readFeelingTest()
+        //viewModel.readFeelingTest()
         //viewModel.readFeelingByDate()
-       // viewModel.insertTest2()
+        // viewModel.insertTest2()
 
 
         val c = Calendar.getInstance()
@@ -131,9 +135,9 @@ class CalendarFragment : Fragment(), CalendarAdapter.CalendarINotify{
 
 
         textView3 = view.findViewById<TextView>(R.id.textView3)
-        textOpis=view.findViewById<TextView>(R.id.description)
-        stickerView=view.findViewById<ImageView>(R.id.slicica)
-        textPrijatelj=view.findViewById<TextView>(R.id.textView17)
+        textOpis = view.findViewById<TextView>(R.id.description)
+        stickerView = view.findViewById<ImageView>(R.id.slicica)
+        textPrijatelj = view.findViewById<TextView>(R.id.textView17)
         textView3.text = format.format(c.time)
 
         val prevMonthImage = view.findViewById<ImageView>(R.id.prevMonthImage)
@@ -163,17 +167,16 @@ class CalendarFragment : Fragment(), CalendarAdapter.CalendarINotify{
         }
 
 
-
-
     }
 
-    override fun onDayClick(index: Int, mesec : Int) {
+    override fun onDayClick(index: Int, mesec: Int) {
         val cal = Calendar.getInstance()
-        cal.set(DAY_OF_MONTH,index)
-        cal.set(MONTH,mesec)
+        cal.set(DAY_OF_MONTH, index)
+        cal.set(MONTH, mesec)
         val fDate: Date = cal.time
         viewModel.readFeelingByDate(fDate)
-        viewModel.readFriendsByDate((fDate))
+        viewModel.readFriendsByDate(fDate)
 
     }
 }
+
