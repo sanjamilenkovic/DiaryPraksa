@@ -11,6 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="86dp"
+            android:layout_height="29dp"
+            android:layout_marginBottom="1dp"
+            android:text="NAME"
+            app:layout_constraintBottom_toTopOf="@+id/editName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <EditText
             android:id="@+id/editName"
             android:layout_width="wrap_content"
@@ -24,6 +35,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="86dp"
+            android:layout_height="29dp"
+            android:layout_marginBottom="1dp"
+            android:text="SURNAME"
+            app:layout_constraintBottom_toTopOf="@+id/editSurname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <EditText
             android:id="@+id/editSurname"
             android:layout_width="wrap_content"
@@ -33,9 +55,20 @@
             android:inputType="textPersonName"
             android:text="@string/surname"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editName" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="86dp"
+            android:layout_height="29dp"
+            android:layout_marginBottom="1dp"
+            android:text="PHONE"
+            app:layout_constraintBottom_toTopOf="@+id/editPhone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/editPhone"

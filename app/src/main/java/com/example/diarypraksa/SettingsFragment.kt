@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.widget.*
 import androidx.core.net.toUri
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
@@ -91,18 +88,22 @@ class SettingsFragment : Fragment(), IPermissionListener {
             Context.MODE_PRIVATE
         )
         btnSave.setOnClickListener {
+            Toast.makeText(requireContext(), "Your changes have been saved", Toast.LENGTH_SHORT).show()
+
 
             val name: String = inputName.text.toString()
             val surname: String = inputSurname.text.toString()
             val phone: String = inputPhone.text.toString()
             val photos: String = string
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
             editor.putString("picture_key", string)
             editor.putString("name_key", inputName.text.toString())
             editor.putString("surname_key", inputSurname.text.toString())
             editor.putString("phone_key", inputPhone.text.toString())
 
             editor.apply()
+
         }
 
 

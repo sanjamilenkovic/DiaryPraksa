@@ -19,4 +19,8 @@
         android:name="com.example.diarypraksa.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/chatBotFragment"
+        android:name="com.example.diarypraksa.ChatBotFragment"
+        android:label="ChatBotFragment" />
 </navigation>
