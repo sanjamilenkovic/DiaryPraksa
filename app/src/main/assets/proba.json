@@ -1,0 +1,46 @@
+
+
+  [
+    {
+      "id": 1,
+      "text": "text pitanja",
+      "odgovori": [
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 4
+        },
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 2
+        },
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 3
+        },
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 1
+        }
+      ]},
+    {
+      "id": 2,
+      "text": "text pitanja",
+      "odgovori": [
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 4
+        },
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 2
+        },
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 3
+        },
+        {
+          "text": "text ovog odgovora",
+          "idSledegPitanja": 1
+        }
+      ]
+    }]
