@@ -3,44 +3,44 @@
   [
     {
       "id": 1,
-      "text": "text pitanja",
-      "odgovori": [
+      "textOfQuestion": "text pitanja",
+      "listOfAnswers": [
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 4
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 4
         },
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 2
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 2
         },
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 3
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 3
         },
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 1
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 1
         }
       ]},
     {
       "id": 2,
-      "text": "text pitanja",
-      "odgovori": [
+      "textOfQuestion": "text pitanja",
+      "listOfAnswers": [
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 4
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 4
         },
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 2
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 2
         },
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 3
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 3
         },
         {
-          "text": "text ovog odgovora",
-          "idSledegPitanja": 1
+          "textOfAnswer": "text ovog odgovora",
+          "idOfNextQuestion": 1
         }
       ]
     }]

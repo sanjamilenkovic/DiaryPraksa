@@ -17,7 +17,12 @@ class AnswerViewModel: ViewModel() {
     private val _answer = MutableLiveData<List<Answer>>()
     public val answer: LiveData<List<Answer>>
         get() {
-            return answer
+            return _answer
+        }
+    private val _question = MutableLiveData<Question>()
+    public val question: LiveData<Question>
+        get() {
+            return _question
         }
 
 
@@ -25,7 +30,7 @@ class AnswerViewModel: ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AnswerViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return AnswerViewModel.AnswerViewModelFactory() as T
+                return AnswerViewModel() as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
@@ -33,20 +38,20 @@ class AnswerViewModel: ViewModel() {
     }
 
     fun jsonToObject(){
-        var listOfAnswers = ArrayList<Question>()
+        var listOfQuestions = ArrayList<Question>()
         var gson = Gson()
 
 
 
         val listType = object : TypeToken<ArrayList<Question>>() {}.type
-        listOfAnswers =
+        listOfQuestions =
             Gson().fromJson<ArrayList<Question>>(
                 loadJSONFromAsset(
                     currentApp,
                     "proba.json"
                 ), listType
             )
-        _answer.postValue(listOfAnswers[0].listOfAnswers)
+        _question.postValue(listOfQuestions[0])
 
     }
 

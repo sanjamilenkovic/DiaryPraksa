@@ -22,5 +22,7 @@
     <fragment
         android:id="@+id/chatBotFragment"
         android:name="com.example.diarypraksa.ChatBotFragment"
-        android:label="ChatBotFragment" />
+        android:label="ChatBotFragment"
+        tools:layout="@layout/chat_bot"
+        />
 </navigation>

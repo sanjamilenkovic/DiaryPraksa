@@ -37,7 +37,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CalendarFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CalendarFragment : Fragment(), CalendarAdapter.CalendarINotify {
+class CalendarFragment : Fragment(R.layout.fragment_calendar), CalendarAdapter.CalendarINotify {
 
     val format = SimpleDateFormat("MMMM yyyy ")
     lateinit var textView3: TextView
