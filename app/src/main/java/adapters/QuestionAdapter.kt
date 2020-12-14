@@ -5,10 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.diarypraksa.Answer
-import com.example.diarypraksa.ChatItem
-import com.example.diarypraksa.Question
-import com.example.diarypraksa.R
+import com.example.diarypraksa.*
 import java.util.ArrayList
 
 class QuestionAdapter(val listener: QuestionAdapter.QuestionINotify) : RecyclerView.Adapter<QuestionAdapter.QuestionHolder>() {

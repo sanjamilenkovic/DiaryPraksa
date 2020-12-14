@@ -1,11 +1,10 @@
-package adapters
+package com.example.diarypraksa
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.diarypraksa.*
 import com.example.diarypraksa.MyApplication.Companion.currentApp
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

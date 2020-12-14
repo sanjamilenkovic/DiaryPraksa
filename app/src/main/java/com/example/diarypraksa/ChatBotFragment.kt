@@ -1,19 +1,14 @@
 package com.example.diarypraksa
 
 import adapters.AnswerAdapter
-import adapters.AnswerViewModel
-import adapters.CalendarAdapter
 import adapters.QuestionAdapter
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.diarypraksa.PermissionHelper.listener
 
 class ChatBotFragment:Fragment(R.layout.chat_bot),AnswerAdapter.AnswerINotify,QuestionAdapter.QuestionINotify {
 
@@ -45,6 +40,7 @@ class ChatBotFragment:Fragment(R.layout.chat_bot),AnswerAdapter.AnswerINotify,Qu
                 val adapter2=QuestionAdapter(listener= this@ChatBotFragment)
                 adapter2.list.clear()
                 adapter2.list.add(it)
+                listOfQuestion.adapter=adapter2
 
 
 
