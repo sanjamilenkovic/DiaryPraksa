@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diarypraksa.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.util.*
 
  class AnswerAdapter(val listener: AnswerAdapter.AnswerINotify) : RecyclerView.Adapter<AnswerAdapter.AnswerHolder>()   {

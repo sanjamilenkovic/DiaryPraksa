@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -40,6 +41,7 @@ class ChatBotFragment:Fragment(R.layout.chat_bot),AnswerAdapter.AnswerINotify,Qu
                 adapter2.list.clear()
                 adapter2.list.add(it)
                 listOfQuestion.adapter=adapter2
+
 
 
             }
