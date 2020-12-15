@@ -27,12 +27,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     lateinit var viewModel: HomeViewModel
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel =
             ViewModelProviders.of(this, HomeViewModel.HomeViewModelFactory((currentApp.repository)))
                 .get(HomeViewModel::class.java)
-
+        viewModel.resetTimer()
 
         val recyclerViewSticker: RecyclerView = view.findViewById(R.id.sticker_rv)
         val recyclerViewFriend : RecyclerView = view.findViewById(R.id.list_of_friends_rv)
@@ -48,6 +50,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 val f = Feeling(today, sticker, "opis1")
                 viewModel.insert(f)
+
 
             }
         }

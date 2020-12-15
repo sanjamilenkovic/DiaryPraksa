@@ -21,6 +21,11 @@
             android:name=".ChatBotActivity"
             android:label="@string/title_activity_chat_bot"
             android:theme="@style/Theme.DiaryPraksa.NoActionBar"></activity>
+        <receiver
+            android:name=".NotificationRecevier"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

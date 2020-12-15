@@ -11,13 +11,15 @@ import android.os.SystemClock
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.R
 import androidx.lifecycle.viewModelScope
-import com.example.diarypraksa.MyApplication.Companion.currentApp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class HomeViewModel(private val repository: DiaryRepository,private val app: Application) : AndroidViewModel(app) {
+class NotificationTimerViewModel(private val app: Application) : AndroidViewModel(app) {
 
     private val REQUEST_CODE = 0
     private val TRIGGER_TIME = "TRIGGER_AT"
@@ -33,7 +35,9 @@ class HomeViewModel(private val repository: DiaryRepository,private val app: App
 
     private lateinit var timer: CountDownTimer
 
-    init{
+    init {
+
+
         notifyPendingIntent = PendingIntent.getBroadcast(
             getApplication(),
             REQUEST_CODE,
@@ -41,11 +45,13 @@ class HomeViewModel(private val repository: DiaryRepository,private val app: App
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+
     }
 
-     fun startTimer() {
 
-        val selectedInterval = 5000
+    private fun startTimer() {
+
+        val selectedInterval = minute * 60 * 24
 
 
         val triggerTime = SystemClock.elapsedRealtime() + selectedInterval
@@ -72,18 +78,5 @@ class HomeViewModel(private val repository: DiaryRepository,private val app: App
         startTimer()
     }
 
-    fun insert(feeling: Feeling) = viewModelScope.launch {
-        repository.insert(feeling)
-    }
 
-
-    class HomeViewModelFactory(private val repository: DiaryRepository) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(repository,currentApp) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
-        }
-    }
 }
